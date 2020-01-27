@@ -107,6 +107,7 @@
   },
   "defaultProject": "ng-memes",
   "cli": {
-    "analytics": "d2baf12d-670e-4cc9-9aa8-42788567d2a9"
+    "defaultCollection": "@ngrx/schematics",
+    "analytics": "ec1399da-df3f-44a5-87b3-8b2987691bf0"
   }
 }

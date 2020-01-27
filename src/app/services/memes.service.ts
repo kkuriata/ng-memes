@@ -10,8 +10,10 @@ import {Observable} from "rxjs";
 export class MemesService {
     constructor(private http: HttpClient) {
     }
-
-    getMemes(): Observable<MemeResponse> {
-        return this.http.get(`${environment.api}/9gag`) as any;
+    
+    getMemes(nextPageUrl?: string): Observable<MemeResponse> {
+        const url: string = nextPageUrl ? nextPageUrl : '9gag';
+        
+        return this.http.get(`${environment.api}/${url}`) as any;
     }
 }
