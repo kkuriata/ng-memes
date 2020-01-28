@@ -17,6 +17,7 @@ import {RouterState, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {EntityDataModule} from '@ngrx/data';
 import {entityConfig} from './entity-metadata';
 import {GlobalErrorHandler} from './services/global-error-handler.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import {GlobalErrorHandler} from './services/global-error-handler.service';
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
         StoreRouterConnectingModule.forRoot({routerState: RouterState.Minimal}),
         EntityDataModule.forRoot(entityConfig),
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
     providers: [
         {

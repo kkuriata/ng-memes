@@ -20,7 +20,7 @@ export class MemesComponent implements OnInit, OnDestroy {
     currentMeme$: Observable<Meme>;
     nextPageUrl$: Observable<string>;
     
-    imageDuration = 3 * 1000;
+    imageDuration = 60 * 1000;
     dummyMeme: Meme = {
         content: undefined,
         title: undefined
