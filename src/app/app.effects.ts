@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {map, switchMap} from "rxjs/operators";
+import {concatMap, map, switchMap} from "rxjs/operators";
 
-import {MemeResponse} from "./models";
+import {ContentTypes, MemeResponse} from "./models";
 import {MemesService} from "./services/memes.service";
-import {loadMemes, saveMemes} from "./actions/memes.actions";
+import {loadMemes, saveCurrentPageUrl, saveMemes, saveMemesMetadata} from "./actions/memes.actions";
+import {of} from 'rxjs';
 
 @Injectable()
 export class AppEffects {
@@ -14,8 +15,23 @@ export class AppEffects {
             return this.memesService.getMemes(nextPageUrl);
         }),
         map((response: MemeResponse) => {
-            return saveMemes({memes: response.memes});
+            const imageMemes = response.memes.filter((meme) => meme.content.contentType === ContentTypes.image);
+
+            return saveMemesMetadata({
+                memes: imageMemes,
+                currentPageUrl: response.next_page_url
+            })
         })
+    ));
+    
+    saveMemes$ = createEffect(() => this.actions$.pipe(
+        ofType(saveMemesMetadata),
+        concatMap((metadata) => of(saveMemes({ memes: metadata.memes })))
+    ));
+    
+    saveCurrentPageUrl$ = createEffect(() => this.actions$.pipe(
+        ofType(saveMemesMetadata),
+        concatMap((metadata) => of(saveCurrentPageUrl({ currentPageUrl: metadata.currentPageUrl })))
     ));
     
     constructor(private actions$: Actions, private memesService: MemesService) {

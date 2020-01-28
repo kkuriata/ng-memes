@@ -14,6 +14,6 @@ export class MemesService {
     getMemes(nextPageUrl?: string): Observable<MemeResponse> {
         const url: string = nextPageUrl ? nextPageUrl : '9gag';
         
-        return this.http.get(`${environment.api}/${url}`) as any;
+        return this.http.get(`${environment.api}/${url}`) as Observable<MemeResponse>;
     }
 }

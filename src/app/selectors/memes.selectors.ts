@@ -12,3 +12,8 @@ export const selectSavedMemes = createSelector(
     memesStateSelector,
     (state) => state.memes
 );
+
+export const selectCurrentPageUrl = createSelector(
+    memesStateSelector,
+    (state) => state.currentPageUrl
+);
