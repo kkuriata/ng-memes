@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import {HttpClientModule} from "@angular/common/http";
 import {FlexLayoutModule} from "@angular/flex-layout";
 
@@ -16,6 +16,7 @@ import {environment} from '../environments/environment';
 import {RouterState, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {EntityDataModule} from '@ngrx/data';
 import {entityConfig} from './entity-metadata';
+import {GlobalErrorHandler} from './services/global-error-handler.service';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,12 @@ import {entityConfig} from './entity-metadata';
         StoreRouterConnectingModule.forRoot({routerState: RouterState.Minimal}),
         EntityDataModule.forRoot(entityConfig),
     ],
-    providers: [],
+    providers: [
+        {
+            provide: ErrorHandler,
+            useClass: GlobalErrorHandler
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

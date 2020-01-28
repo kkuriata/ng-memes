@@ -2,8 +2,7 @@ import {createAction, props} from '@ngrx/store';
 import {Meme} from "../models";
 
 export const loadMemes = createAction(
-    '[Memes] Load Memes',
-    props<{ nextPageUrl?: string }>()
+    '[Memes] Load Memes'
 );
 
 export const saveMemes = createAction(
@@ -11,14 +10,14 @@ export const saveMemes = createAction(
     props<{ memes: Meme[] }>()
 );
 
-export const saveCurrentPageUrl = createAction(
-    '[Memes] Save Current Page Url',
-    props<{ currentPageUrl: string }>()
+export const saveNextPageUrl = createAction(
+    '[Memes] Save Next Page Url',
+    props<{ nextPageUrl: string }>()
 );
 
 export const saveMemesMetadata = createAction(
     '[Memes] Save Memes Metadata',
-    props<{ memes: Meme[], currentPageUrl: string}>()
+    props<{ memes: Meme[], nextPageUrl: string}>()
 );
 
 export const setCurrentMeme = createAction(

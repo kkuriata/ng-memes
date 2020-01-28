@@ -12,8 +12,9 @@ export class MemesService {
     }
     
     getMemes(nextPageUrl?: string): Observable<MemeResponse> {
-        const url: string = nextPageUrl ? nextPageUrl : '9gag';
+        const urlPart: string = nextPageUrl ? nextPageUrl : '/9gag';
+        const url: string = `${environment.api}${urlPart}`;
         
-        return this.http.get(`${environment.api}/${url}`) as Observable<MemeResponse>;
+        return this.http.get(url) as Observable<MemeResponse>;
     }
 }

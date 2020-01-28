@@ -13,7 +13,7 @@ export const selectSavedMemes = createSelector(
     (state) => state.memes
 );
 
-export const selectCurrentPageUrl = createSelector(
+export const selectNextPageUrl = createSelector(
     memesStateSelector,
-    (state) => state.currentPageUrl
+    (state) => state.nextPageUrl
 );

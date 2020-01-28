@@ -1,27 +1,27 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {Meme} from "../models";
-import {saveCurrentPageUrl, saveMemes, setCurrentMeme} from "../actions/memes.actions";
+import {saveNextPageUrl, saveMemes, setCurrentMeme} from "../actions/memes.actions";
 
 export const memesFeatureKey = 'memes';
 
 export interface MemesState {
     memes: Meme[],
     currentMeme: Meme,
-    currentPageUrl: string
+    nextPageUrl: string
 }
 
 export const initialState: MemesState = {
     memes: [],
-    currentMeme: null,
-    currentPageUrl: ''
+    currentMeme: undefined,
+    nextPageUrl: ''
 };
 
 const memesReducer = createReducer(
     initialState,
-    on(saveCurrentPageUrl, ((state, {currentPageUrl}) => {
+    on(saveNextPageUrl, ((state, {nextPageUrl}) => {
         return {
             ...state,
-            currentPageUrl
+            nextPageUrl
         };
     })),
     on(saveMemes, ((state, {memes}) => {

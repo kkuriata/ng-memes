@@ -1,6 +1,6 @@
-<div *ngIf="currentMeme$ | async as meme"
+<div *ngIf="{ meme: currentMeme$ | async } as data"
      class="slideshow"
      fxLayout="row"
      fxLayoutAlign="center stretch">
-    <img #image [alt]="meme.title" [src]="meme.content.url">
+    <img #image *ngIf="data.meme" [alt]="data.meme.title" [src]="data.meme.content.url">
 </div>
