@@ -6,7 +6,7 @@ import {select, Store} from "@ngrx/store";
 import {MemesState} from "../../reducers/memes.reducer";
 import {loadMemes, setCurrentMeme} from "../../actions/memes.actions";
 import {selectCurrentMeme, selectNextPageUrl, selectSavedMemes} from "../../selectors/memes.selectors";
-import {concatMap, delay, mergeMap, takeUntil} from "rxjs/operators";
+import {concatMap, delay, mergeMap, skip, takeUntil} from "rxjs/operators";
 
 @Component({
     selector: 'app-memes',
@@ -26,7 +26,10 @@ export class MemesComponent implements OnInit, OnDestroy {
         title: undefined
     };
     
-    constructor(private memesService: MemesService, private store: Store<MemesState>) {
+    constructor(
+        private memesService: MemesService,
+        private store: Store<MemesState>
+        ) {
     }
     
     ngOnInit() {
