@@ -6,7 +6,7 @@ import {select, Store} from "@ngrx/store";
 import {MemesState} from "../../reducers/memes.reducer";
 import {loadMemes, setCurrentMeme} from "../../actions/memes.actions";
 import {selectCurrentMeme, selectNextPageUrl, selectSavedMemes} from "../../selectors/memes.selectors";
-import {concatMap, delay, mergeMap, skip, takeUntil} from "rxjs/operators";
+import {concatMap, delay, mergeMap, skip, takeUntil, filter} from "rxjs/operators";
 
 @Component({
     selector: 'app-memes',
@@ -36,13 +36,16 @@ export class MemesComponent implements OnInit, OnDestroy {
         this.store.pipe(
             takeUntil(this.ngUnsubscribe$),
             select(selectSavedMemes),
+            filter((meme: Meme[]) => meme.length > 0),
             mergeMap((meme: Meme[]) => from([...meme, this.dummyMeme])),
             concatMap((meme: Meme, index: number) => {
                 const meme$ = of(meme);
+                console.log('index', index);
                 
                 return index === 0 ? meme$ : meme$.pipe(delay(this.imageDuration));
             })
         ).subscribe((meme: Meme) => {
+            console.log('meme', meme);
             if (!meme.content) {
                 this.store.dispatch(loadMemes());
                 return;
